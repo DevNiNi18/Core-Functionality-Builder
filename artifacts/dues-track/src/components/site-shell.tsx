@@ -1,5 +1,5 @@
 import { useState, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes } from 'react';
-import { ArrowRight, BadgeCheck, Menu, X } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'wouter';
 
 const navItems = [
@@ -13,15 +13,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-[100dvh] text-foreground">
-      <header className="relative z-20 border-b border-border/80 bg-[hsl(var(--background)/.88)] backdrop-blur-md">
+    <div className="site-shell min-h-[100dvh] text-foreground">
+      <header className="site-header relative z-20 border-b border-border/80">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 lg:px-8">
           <Link href="/" data-testid="link-brand" className="group flex items-center gap-3">
-            <span className="grid size-10 place-items-center rounded-[13px] bg-secondary text-primary shadow-[3px_3px_0_hsl(var(--primary))] transition-transform group-hover:-translate-y-0.5">
-              <BadgeCheck className="size-5" strokeWidth={2.4} />
-            </span>
+            <img src="/nacos-logo.svg" alt="NACOS UNN" className="size-11 rounded-full object-cover shadow-[0_5px_15px_rgba(0,0,0,.22)] transition-transform group-hover:-translate-y-0.5" />
             <span>
-              <span className="block font-display text-lg font-semibold leading-none tracking-tight">DuesTrack</span>
+              <span className="block font-display text-lg font-semibold leading-none tracking-tight">DuesTrack <span className="text-primary">—</span> NACOS UNN</span>
               <span className="font-mono-brand mt-1 block text-[9px] uppercase tracking-[.18em] text-muted-foreground">NACOS · UNN</span>
             </span>
           </Link>
@@ -77,9 +75,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
         )}
       </header>
 
-      <main>{children}</main>
+      <main className="site-main">
+        <div className="site-content-panel">{children}</div>
+      </main>
 
-      <footer className="border-t border-border bg-secondary text-secondary-foreground">
+      <footer className="site-footer border-t border-border bg-secondary text-secondary-foreground">
         <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-8 sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <div>
             <p className="font-display text-base font-semibold">Keep your record close.</p>

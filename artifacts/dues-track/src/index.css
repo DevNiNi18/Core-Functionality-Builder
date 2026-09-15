@@ -79,67 +79,67 @@
   --elevate-1: rgba(0, 0, 0, 0.03);
   --elevate-2: rgba(0, 0, 0, 0.08);
 
-  --background: 41 45% 96%;
+  --background: 0 0% 7%;
 
-  --foreground: 207 35% 15%;
+  --foreground: 0 0% 100%;
 
-  --border: 40 22% 86%;
+  --border: 0 0% 100%;
 
-  --card: 42 50% 99%;
+  --card: 0 0% 100%;
 
-  --card-foreground: 207 35% 15%;
+  --card-foreground: 0 0% 100%;
 
-  --card-border: 40 22% 87%;
+  --card-border: 0 0% 100%;
 
-  --sidebar: 207 41% 19%;
+  --sidebar: 143 82% 24%;
 
-  --sidebar-foreground: 41 45% 96%;
+  --sidebar-foreground: 0 0% 100%;
 
-  --sidebar-border: 207 25% 30%;
+  --sidebar-border: 0 0% 100%;
 
-  --sidebar-primary: 48 94% 59%;
+  --sidebar-primary: 143 68% 39%;
 
-  --sidebar-primary-foreground: 207 41% 19%;
+  --sidebar-primary-foreground: 0 0% 100%;
 
-  --sidebar-accent: 207 31% 27%;
+  --sidebar-accent: 143 68% 39%;
 
-  --sidebar-accent-foreground: 41 45% 96%;
+  --sidebar-accent-foreground: 0 0% 100%;
 
-  --sidebar-ring: 48 94% 59%;
+  --sidebar-ring: 143 68% 39%;
 
-  --popover: 42 50% 99%;
+  --popover: 143 82% 24%;
 
-  --popover-foreground: 207 35% 15%;
+  --popover-foreground: 0 0% 100%;
 
-  --popover-border: 40 22% 87%;
+  --popover-border: 0 0% 100%;
 
-  --primary: 48 94% 59%;
+  --primary: 143 68% 39%;
 
-  --primary-foreground: 207 41% 19%;
+  --primary-foreground: 0 0% 100%;
 
-  --secondary: 207 31% 27%;
+  --secondary: 143 82% 24%;
 
-  --secondary-foreground: 41 45% 96%;
+  --secondary-foreground: 0 0% 100%;
 
-  --muted: 40 30% 92%;
+  --muted: 143 26% 16%;
 
-  --muted-foreground: 207 14% 45%;
+  --muted-foreground: 0 0% 88%;
 
-  --accent: 13 71% 57%;
+  --accent: 143 68% 39%;
 
-  --accent-foreground: 42 50% 99%;
+  --accent-foreground: 0 0% 100%;
 
-  --destructive: 3 67% 49%;
+  --destructive: 0 72% 58%;
 
-  --destructive-foreground: 42 50% 99%;
+  --destructive-foreground: 0 0% 100%;
 
-  --input: 40 22% 82%;
-  --ring: 48 94% 59%;
-  --chart-1: 48 94% 59%;
-  --chart-2: 207 41% 19%;
-  --chart-3: 13 71% 57%;
-  --chart-4: 161 39% 42%;
-  --chart-5: 35 78% 56%;
+  --input: 0 0% 100%;
+  --ring: 143 68% 39%;
+  --chart-1: 143 68% 39%;
+  --chart-2: 143 82% 24%;
+  --chart-3: 0 0% 100%;
+  --chart-4: 143 55% 52%;
+  --chart-5: 0 0% 88%;
 
   --app-font-sans: 'Manrope', sans-serif;
   --app-font-serif: 'Space Grotesk', sans-serif;
@@ -318,6 +318,7 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    background: #0a0a0a;
   }
 }
 
@@ -440,9 +441,6 @@
 
   body {
     min-width: 320px;
-    background:
-      radial-gradient(circle at 12% 8%, hsl(48 94% 59% / 0.12), transparent 25rem),
-      hsl(var(--background));
   }
 
   button,
@@ -459,6 +457,141 @@
 }
 
 @layer utilities {
+  .site-shell {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+  }
+
+  .site-shell::before,
+  .site-shell::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .site-shell::before {
+    z-index: -2;
+    background-color: #0a0a0a;
+    background-image: url('/nacos-background.svg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .site-shell::after {
+    z-index: -1;
+    background: rgba(3, 28, 14, 0.52);
+  }
+
+  .site-header,
+  .site-footer {
+    background: rgba(4, 39, 19, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .site-header button {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+  }
+
+  .site-main {
+    padding: 18px 16px 34px;
+  }
+
+  .site-content-panel {
+    max-width: 1240px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+  }
+
+  .site-content-panel .bg-card,
+  .site-content-panel .bg-card\/80,
+  .site-content-panel .bg-card\/60 {
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+
+  .site-content-panel .bg-muted,
+  .site-content-panel .bg-muted\/40 {
+    background: rgba(11, 110, 47, 0.24) !important;
+    color: #fff;
+  }
+
+  .site-content-panel input,
+  .site-content-panel select {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+  }
+
+  .site-content-panel select option {
+    background: #0b6e2f;
+    color: #fff;
+  }
+
+  .site-content-panel .border-border,
+  .site-footer {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .site-content-panel .text-muted-foreground {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .site-content-panel .text-foreground {
+    color: #fff;
+  }
+
+  .site-content-panel .hover\:bg-muted:hover {
+    background: rgba(31, 168, 74, 0.28) !important;
+  }
+
+  .site-content-panel .paper-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  }
+
+  .site-content-panel section.bg-secondary,
+  .site-content-panel .bg-secondary {
+    background-color: rgba(4, 64, 27, 0.84);
+  }
+
+  .site-content-panel .bg-primary\/10 {
+    background: rgba(31, 168, 74, 0.18);
+  }
+
+  .site-content-panel .text-accent,
+  .site-content-panel .text-primary {
+    color: #1fa84a;
+  }
+
+  .site-content-panel .bg-primary {
+    background-color: #1fa84a;
+  }
+
+  .site-content-panel .bg-secondary {
+    background-color: #0b6e2f;
+  }
+
+  .site-content-panel .text-secondary-foreground {
+    color: #fff;
+  }
+
   .font-display {
     font-family: var(--app-font-serif);
   }

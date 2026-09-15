@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" role="img" aria-label="NACOS UNN background mark">
+  <defs>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1FA84A"/>
+      <stop offset="1" stop-color="#0B6E2F"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+  <g transform="translate(800 600)" opacity=".72" filter="url(#soft)">
+    <circle r="426" fill="#0A0A0A" fill-opacity=".72" stroke="#fff" stroke-opacity=".5" stroke-width="16"/>
+    <circle r="360" fill="url(#green)" stroke="#fff" stroke-opacity=".18" stroke-width="8"/>
+    <path d="M0-300 194-222v160c0 153-83 267-194 340-111-73-194-187-194-340v-160z" fill="#fff" fill-opacity=".88"/>
+    <path d="M0-266 157-202v139C157 59 94 149 0 211-94 149-157 59-157-63v-139z" fill="#0B6E2F"/>
+    <path d="m-86 0 60 60L88-70" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="36"/>
+    <text x="0" y="310" fill="#fff" fill-opacity=".85" font-family="Arial, sans-serif" font-size="54" font-weight="700" letter-spacing="12" text-anchor="middle">NACOS · UNN</text>
+  </g>
+</svg>
