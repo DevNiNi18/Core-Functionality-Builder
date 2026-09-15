@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "DuesTrack"
+description = "A dues payment and verification app for the Computer Science department at NACOS UNN. Students can simulate a dues payment, receive permanent proof codes, check their payment standing, and verify payment records."
+version = "1.0.0"
+id = "artifacts/dues-track"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20997
+
+[services.development]
+run = "pnpm --filter @workspace/dues-track run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/dues-track", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/dues-track/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20997"
+BASE_PATH = "/"

@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: payments
+    description: Dues payment and verification operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,80 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /payments:
+    post:
+      operationId: createPayment
+      tags: [payments]
+      summary: Record a simulated dues payment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaymentInput"
+      responses:
+        "201":
+          description: Payment created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Payment"
+        "400":
+          description: Invalid payment input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /payments/standing/{matricNumber}:
+    get:
+      operationId: getStanding
+      tags: [payments]
+      summary: Get a student's payment standing
+      parameters:
+        - name: matricNumber
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Payment standing
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Standing"
+        "400":
+          description: Matric number is required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /payments/verify/{code}:
+    get:
+      operationId: verifyPayment
+      tags: [payments]
+      summary: Verify a payment code
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Verified payment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Payment"
+        "404":
+          description: Code not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +109,97 @@ components:
           type: string
       required:
         - status
+    Payment:
+      type: object
+      properties:
+        matricNumber:
+          type: string
+        studentName:
+          type: string
+        session:
+          type: string
+        amount:
+          type: number
+        code:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+      required:
+        - matricNumber
+        - studentName
+        - session
+        - amount
+        - code
+        - timestamp
+    PaymentInput:
+      type: object
+      properties:
+        matricNumber:
+          type: string
+          minLength: 1
+        studentName:
+          type: string
+          minLength: 1
+        session:
+          type: string
+          minLength: 1
+        amount:
+          type: number
+          minimum: 0
+      required:
+        - matricNumber
+        - studentName
+        - session
+        - amount
+    StandingSession:
+      type: object
+      properties:
+        session:
+          type: string
+        amount:
+          type: number
+        code:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+      required:
+        - session
+        - amount
+        - code
+        - timestamp
+    Standing:
+      type: object
+      properties:
+        matricNumber:
+          type: string
+        studentName:
+          type: string
+        paidSessions:
+          type: array
+          items:
+            $ref: "#/components/schemas/StandingSession"
+        outstandingSessions:
+          type: array
+          items:
+            type: string
+        totalPaid:
+          type: number
+        totalOwed:
+          type: number
+      required:
+        - matricNumber
+        - studentName
+        - paidSessions
+        - outstandingSessions
+        - totalPaid
+        - totalOwed
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
 

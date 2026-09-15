@@ -1,0 +1,50 @@
+PART 1 — Core functionality (no styling focus)
+
+Build a full-stack web app called DuesTrack — a dues payment and verification system for the Computer Science department (NACOS) at University of Nigeria, Nsukka (UNN). Use Node.js + Express for the backend and plain HTML/CSS/JavaScript for the frontend (no framework). Use Replit's built-in key-value Database (@replit/database) for storage — no external DB setup. Use plain, minimal, unstyled or barely-styled HTML for now — default browser styling or very basic CSS is fine. Do not spend time on visual design in this step; focus entirely on working functionality.
+
+Core data model
+
+Store each payment record as a JSON object with:
+
+matricNumber (string, unique student ID, e.g. "2021/245678")
+studentName (string)
+session (string, e.g. "2024/2025")
+amount (number)
+code (string, unique — generate with a short alphanumeric ID, e.g. 8 characters, uppercase, using crypto.randomBytes or nanoid)
+timestamp (ISO date string)
+
+Store records under a key pattern like payment:<code> AND maintain an index student:<matricNumber> that holds an array of codes belonging to that student, so lookups by matric number are fast.
+
+Hardcode a single constant for the per-session due amount:
+
+js
+const DUES_PER_SESSION = 2000; // NACOS UNN dues
+Pages / Routes
+
+1. Landing page (/) Three links/buttons: "Pay Dues", "Check My Standing", "Verify a Code".
+
+2. Pay Dues (/pay)
+
+Form: Matric Number, Full Name, Session (dropdown of last 3-4 sessions), Amount (prefill with DUES_PER_SESSION, allow override).
+On submit: simulate payment success (a short fake "Processing payment..." delay is fine) — OR integrate Paystack test mode only if it takes under 10 minutes; otherwise skip it and keep the simulated flow.
+On success: generate a unique code, save the record, index it under the student, and display the code prominently with a "copy code" button and the message: "Save this code. This is your permanent proof of payment."
+
+3. Check My Standing (/standing)
+
+Input: Matric Number.
+On lookup: show every session paid, amount paid per session, total paid, and total owed (DUES_PER_SESSION × number of expected sessions) vs total paid, with outstanding sessions clearly flagged.
+
+4. Verify a Code (/verify)
+
+Input: the unique code.
+On lookup: show the full record (name, matric number, session, amount, date) if valid, or a clear "Code not found / invalid" message if not.
+Seed data
+
+On server start, seed 4-5 fake student records with a mix of paid/unpaid sessions so the demo has real data immediately without manual entry.
+
+What NOT to build right now
+No user authentication/signup for students.
+No real bank integration unless trivially fast — default to simulated payment.
+No visual design/branding work — that comes in a separate step.
+
+Confirm when done: the full loop (pay → generate code → check standing shows it → verify code shows it) should work end to end.
