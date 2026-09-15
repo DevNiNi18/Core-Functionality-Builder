@@ -225,7 +225,7 @@ export const getGetStandingUrl = (matricNumber: string,) => {
 
 
 
-  return `/api/payments/standing/${matricNumber}`
+  return `/api/payments/standing/${encodeURIComponent(matricNumber)}`
 }
 
 /**
@@ -302,7 +302,7 @@ export const getVerifyPaymentUrl = (code: string,) => {
 
 
 
-  return `/api/payments/verify/${code}`
+  return `/api/payments/verify/${encodeURIComponent(code)}`
 }
 
 /**

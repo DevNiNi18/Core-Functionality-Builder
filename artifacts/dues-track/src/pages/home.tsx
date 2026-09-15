@@ -55,7 +55,14 @@ export default function Home() {
                 <p className="font-mono-brand text-[9px] uppercase tracking-[.15em] text-secondary-foreground/55">proof code</p>
                 <p data-testid="text-example-code" className="mt-1 font-mono-brand text-lg tracking-[.18em] text-primary">NAC-7F2K-91QX</p>
               </div>
-              <p className="mt-5 font-mono-brand text-[9px] uppercase tracking-[.14em] text-secondary-foreground/45">keep this code for your records</p>
+              <Link
+                href="/verify?code=NAC-7F2K-91QX"
+                className="mt-4 flex items-center justify-between rounded-xl bg-secondary-foreground/10 px-3.5 py-2 text-xs font-bold text-secondary-foreground transition-colors hover:bg-secondary-foreground/20"
+              >
+                <span>Test verify this code</span>
+                <ArrowRight className="size-3.5 text-primary" />
+              </Link>
+              <p className="mt-4 font-mono-brand text-[9px] uppercase tracking-[.14em] text-secondary-foreground/45">official proof code example</p>
             </div>
             <div className="absolute -bottom-9 -left-8 hidden -rotate-6 items-center gap-3 rounded-xl border border-border bg-card px-4 py-3 text-xs font-bold shadow-lg sm:flex"><ShieldCheck className="size-5 text-accent" /> Easy to verify</div>
           </div>
